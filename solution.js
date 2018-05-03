@@ -1,11 +1,16 @@
+let numIteration = 0;
 
 function binarySearchActual(toSearch, searchValue) {
     let result = false;
+    numIteration++;
     let chopIndex = Math.round(toSearch.length / 2);
     if (toSearch[chopIndex] === searchValue) {
-        return chopIndex;
+        return true;
+    } else if (toSearch.length === 1 && toSearch[0] !== searchValue) {
+        return false;
+    } else {
+        toSearch[chopIndex] < searchValue ? result = binarySearchActual(toSearch.splice(chopIndex), searchValue) : result = binarySearchActual(toSearch.splice(0, chopIndex), searchValue);
     };
-    toSearch[chopIndex] < searchValue ? result = binarySearchActual(toSearch.splice(chopIndex), searchValue) : result = binarySearchActual(toSearch.splice(0, chopIndex), searchValue);
     return result;
 };
 
@@ -27,4 +32,5 @@ const nameList = [
     'Flash'
 ];
 
-console.log(binarySearch(nameList, 'Batman'));
+console.log(binarySearch(nameList, 'Batman'), numIteration);
+console.log(binarySearch(nameList, 'Robin'), numIteration);
